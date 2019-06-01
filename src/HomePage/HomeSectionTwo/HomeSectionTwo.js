@@ -3,9 +3,7 @@ import { Container, Row } from 'react-bootstrap';
 import IndustriesCards from '../HomeSectionTwo/IndustriesCards/industriesCards';
 
 export default class SectionTwo extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+ 
     render () {
         this.setState = {
             industriesCardsList : [

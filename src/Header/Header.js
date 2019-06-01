@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import {  Link } from "react-router-dom";
 import { Button, Navbar, Nav,  Form, FormControl, ButtonToolbar } from 'react-bootstrap';
 import './Header.css';
 import ContactUsModal from '../ContactModal/ContactModal';
