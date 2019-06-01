@@ -1,0 +1,22 @@
+.carousel-item {
+    height:400px;
+    .carousel-caption {
+        position: initial;
+        left:0;
+        top:0;
+        color: #000;
+        h3 {
+            font-weight: 700;
+            margin: 30px 0;
+        }
+        p {
+            font-size: 20px;
+            line-height: 35px;
+        }
+    }
+    img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+}
