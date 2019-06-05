@@ -1,4 +1,5 @@
 import React from 'react';
+import '../Portfolio/Portfolio.scss';
 import {Helmet} from 'react-helmet';
 import {Container , Row} from 'react-bootstrap';
 
@@ -40,15 +41,22 @@ export default class Portfolio extends React.Component  {
     render () {
         const assignPortfolio = this.state.portfolioList.map((getPortfolio , index) => {
             return (
-                <li key={index}
+                <li key={index} data-id={index}
                     // # Method 1 ===================================================
                         //onClick={this.activeStateHandler} 
                         //className={this.state.active == index ? 'active' : ''} 
 
                     // # Method 2 ===================================================
                         onClick={this.activeListHandler.bind(this, index)} 
-                        className={this.state.activeItem == index ? 'active' : ''}
-                    data-id={index}>{getPortfolio.name} {getPortfolio.CMS}
+                        className={this.state.activeItem == index ? 'active col-sm-4 mb-4' : 'col-sm-4 mb-4'}>
+
+                        <div class="card">
+                            <img class="card-img-top" src="..." alt="Card image cap"/>
+                            <div class="card-body">
+                                <h4>{getPortfolio.name}</h4>
+                                <p class="card-text">{getPortfolio.CMS}</p>
+                            </div>
+                        </div>
                 </li>
             )
         })
@@ -59,8 +67,10 @@ export default class Portfolio extends React.Component  {
             </Helmet>
             <Container>
                 <Row>
-                    <h5 style={{display:'block', width: '100%'}}><b>Portfolio page content here</b></h5>
-                    <ul>{assignPortfolio}</ul>
+                    <div className="porfolios w-100">
+                        <hgroup className="pt-4 pb-2">All Porfolios</hgroup> <hr></hr>
+                        <ul className="row p-0 mt-4">{assignPortfolio}</ul>
+                    </div>
                 </Row>
             </Container>
         </React.Fragment>

@@ -1,0 +1,16 @@
+.porfolios {
+    position: relative;
+    hgroup{
+        font-weight: 700;
+        font-size:22px;
+        clear: both;
+    }
+    ul {
+        list-style: none;
+        li.active {
+            .card{
+                background: #ccc;
+            }
+        }
+    }
+}
