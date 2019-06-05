@@ -13,7 +13,7 @@ export default class Portfolio extends React.Component  {
                 {name : 'project test-4', CMS : 'Drupal'},
                 {name : 'project test-5', CMS : 'CI'}
             ],
-            activeState : false
+            active : ''
         }
 
         this.activeStateHandler = this.activeStateHandler.bind(this)
@@ -21,22 +21,25 @@ export default class Portfolio extends React.Component  {
     
 
     activeStateHandler(e){
-        this.setState((prevState)=>{
-            return {activeState : !prevState.activeState}
-        })
-        //let getId = e.currentTarget.dataset.id
-        //console.log('clicked', getId)
+        // # Method 1 ===================================================
+        const clicked = e.currentTarget.dataset.id
+        if(this.state.active === clicked) { 
+            this.setState({active: ''});
+        } else {
+            this.setState({active: clicked})
+        }
+        // ==============================================================
+
+
     }
 
     render () {
-        const listActiveClass = (this.state.activeState ? 'active' : '');
         const assignPortfolio = this.state.portfolioList.map((getPortfolio , index) => {
             return (
                 <li key={index}
-                    onClick={this.activeStateHandler} 
-                    className={listActiveClass}
-                    // className={index === 0 ? 'active' : ''}
-                    data-id={index + 1}>{getPortfolio.name} {getPortfolio.CMS}
+                    onClick={this.activeStateHandler}
+                    className={this.state.active == index ? 'active' : ''}
+                    data-id={index}>{getPortfolio.name} {getPortfolio.CMS}
                 </li>
             )
         })
