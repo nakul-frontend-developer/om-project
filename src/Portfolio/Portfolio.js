@@ -1,20 +1,21 @@
 import React from 'react';
 import '../Portfolio/Portfolio.scss';
 import {Helmet} from 'react-helmet';
-import {Container , Row} from 'react-bootstrap';
+import {Container , Row, Button} from 'react-bootstrap';
+import PortfolioModal from '../Portfolio/PortfolioModal/PortfolioModal';
 
 export default class Portfolio extends React.Component  {
-    constructor(props){
-        super(props);
+    constructor(props , ...args){
+        super(props , ...args);
         this.state = {
             portfolioList : [
-                {name : 'project test-1', CMS : 'Wordpress'},
-                {name : 'project test-2', CMS : 'Zend'},
-                {name : 'project test-3', CMS : 'Magento'},
-                {name : 'project test-4', CMS : 'Drupal'},
-                {name : 'project test-5', CMS : 'CI'}
+                {img: 'images/360x150.png', name : 'project test-1', CMS : 'Wordpress'},
+                {img: 'images/360x150.png', name : 'project test-2', CMS : 'Zend'},
+                {img: 'images/360x150.png', name : 'project test-3', CMS : 'Magento'},
+                {img: 'images/360x150.png', name : 'project test-4', CMS : 'Drupal'},
+                {img: 'images/360x150.png', name : 'project test-5', CMS : 'CI'}
             ],
-            
+            modalShow: false,
             active : '',    // # Method 1 - If we use -1 so active state remove in all (li) onLoad
             activeItem: '', // # Method 2 - If we use -1 so active state remove in all (li) onLoad
         }
@@ -35,10 +36,14 @@ export default class Portfolio extends React.Component  {
     activeListHandler (currentIndex) {
         this.setState({
             activeItem: currentIndex,
+            modalShow: true
         })
     }
 
+
+
     render () {
+        let modalClose = () => this.setState({ modalShow: false });
         const assignPortfolio = this.state.portfolioList.map((getPortfolio , index) => {
             return (
                 <li key={index} data-id={index}
@@ -48,18 +53,21 @@ export default class Portfolio extends React.Component  {
 
                     // # Method 2 ===================================================
                         onClick={this.activeListHandler.bind(this, index)} 
-                        className={this.state.activeItem == index ? 'active col-sm-4 mb-4' : 'col-sm-4 mb-4'}>
+                        className={this.state.activeItem === index ? 'active col-sm-4 mb-4' : 'col-sm-4 mb-4'}>
 
-                        <div class="card">
-                            <img class="card-img-top" src="..." alt="Card image cap"/>
-                            <div class="card-body">
+                        <div className="card">
+                            <img className="card-img-top" src={getPortfolio.img} alt=""/>
+                            <div className="card-body">
                                 <h4>{getPortfolio.name}</h4>
-                                <p class="card-text">{getPortfolio.CMS}</p>
+                                <p className="card-text"><b>{getPortfolio.CMS}</b></p>
+                                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout... </p>
+                                <Button variant="secondary" >Show More</Button>
                             </div>
                         </div>
                 </li>
             )
         })
+        
         return(
         <React.Fragment>
             <Helmet>
@@ -70,6 +78,7 @@ export default class Portfolio extends React.Component  {
                     <div className="porfolios w-100">
                         <hgroup className="pt-4 pb-2">All Porfolios</hgroup> <hr></hr>
                         <ul className="row p-0 mt-4">{assignPortfolio}</ul>
+                        <PortfolioModal show={this.state.modalShow} onHide={modalClose}></PortfolioModal>
                     </div>
                 </Row>
             </Container>
