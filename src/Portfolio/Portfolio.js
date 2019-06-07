@@ -36,7 +36,7 @@ export default class Portfolio extends React.Component  {
     activeListHandler (currentIndex) {
         this.setState({
             activeItem: currentIndex,
-            modalShow: true
+            modalShow: true, 
         })
     }
 
@@ -78,7 +78,12 @@ export default class Portfolio extends React.Component  {
                     <div className="porfolios w-100">
                         <hgroup className="pt-4 pb-2">All Porfolios</hgroup> <hr></hr>
                         <ul className="row p-0 mt-4">{assignPortfolio}</ul>
-                        <PortfolioModal show={this.state.modalShow} onHide={modalClose}></PortfolioModal>
+                        <PortfolioModal
+                            name={this.state.portfolioList.name}
+                            show={this.state.modalShow} 
+                            onHide={modalClose}
+                        >
+                        </PortfolioModal>
                     </div>
                 </Row>
             </Container>

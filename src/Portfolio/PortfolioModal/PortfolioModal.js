@@ -17,6 +17,7 @@ export default class PortfolioModal extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <h4>Portfolio Modal</h4>
+            <h5>{this.props.name}</h5>
             <p>
               Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
               dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
