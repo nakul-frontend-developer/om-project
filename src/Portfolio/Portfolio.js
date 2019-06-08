@@ -16,6 +16,7 @@ export default class Portfolio extends React.Component  {
                 {img: 'images/360x150.png', name : 'project test-5', CMS : 'CI'}
             ],
             modalShow: false,
+            modalActive : '',
             active : '',    // # Method 1 - If we use -1 so active state remove in all (li) onLoad
             activeItem: '', // # Method 2 - If we use -1 so active state remove in all (li) onLoad
         }
@@ -40,11 +41,13 @@ export default class Portfolio extends React.Component  {
         })
     }
 
+    
+
 
 
     render () {
         let modalClose = () => this.setState({ modalShow: false });
-        const assignPortfolio = this.state.portfolioList.map((getPortfolio , index) => {
+        var assignPortfolio = this.state.portfolioList.map((getPortfolio , index) => {
             return (
                 <li key={index} data-id={index}
                     // # Method 1 ===================================================
@@ -67,7 +70,8 @@ export default class Portfolio extends React.Component  {
                 </li> 
             )
         })
-        
+        //console.log(JSON.stringify(this.state.portfolioList[0].name))
+
         return(
         <React.Fragment>
             <Helmet>
@@ -78,12 +82,18 @@ export default class Portfolio extends React.Component  {
                     <div className="porfolios w-100">
                         <hgroup className="pt-4 pb-2">All Porfolios</hgroup> <hr></hr>
                         <ul className="row p-0 mt-4">{assignPortfolio}</ul>
-                        <PortfolioModal
-                            name={this.state.portfolioList.name}
+                        <div>{this.state.portfolioList.img}</div>
+                        
+                        {this.state.portfolioList.map((storeFolios , index) => (
+                            <PortfolioModal id={index}
+                            name={storeFolios.name}
                             show={this.state.modalShow} 
                             onHide={modalClose}
-                        >
-                        </PortfolioModal>
+                            >
+                            </PortfolioModal>
+                        ))} 
+
+                        
                     </div>
                 </Row>
             </Container>
