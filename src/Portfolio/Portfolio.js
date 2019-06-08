@@ -64,7 +64,7 @@ export default class Portfolio extends React.Component  {
                                 <Button variant="secondary" >Show More</Button>
                             </div>
                         </div>
-                </li>
+                </li> 
             )
         })
         
