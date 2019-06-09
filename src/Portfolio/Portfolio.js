@@ -16,13 +16,13 @@ export default class Portfolio extends React.Component  {
                 {img: 'images/360x150.png', name : 'project test-5', CMS : 'CI'}
             ],
             modalShow: false,
-            modalActive : '',
             active : '',    // # Method 1 - If we use -1 so active state remove in all (li) onLoad
             activeItem: '', // # Method 2 - If we use -1 so active state remove in all (li) onLoad
         }
         this.activeStateHandler = this.activeStateHandler.bind(this)
     }
-    
+
+   
     // # Method 1 Handler ===================================================
     activeStateHandler(e){
         const clicked = e.currentTarget.dataset.id
@@ -34,21 +34,22 @@ export default class Portfolio extends React.Component  {
     }
 
     // # Method 2 Handler ===================================================
-    activeListHandler (currentIndex) {
+    activeListHandler (currentIndex ,e) {
+        //const currentIndexx = e.currentTarget.dataset.id
+        //console.log(currentIndexx)
         this.setState({
             activeItem: currentIndex,
             modalShow: true, 
         })
     }
 
-    
-
-
+   
 
     render () {
         let modalClose = () => this.setState({ modalShow: false });
         var assignPortfolio = this.state.portfolioList.map((getPortfolio , index) => {
             return (
+                <React.Fragment key={index}>
                 <li key={index} data-id={index}
                     // # Method 1 ===================================================
                         //onClick={this.activeStateHandler} 
@@ -68,6 +69,12 @@ export default class Portfolio extends React.Component  {
                             </div>
                         </div>
                 </li> 
+                <PortfolioModal 
+                    data-id={index}
+                    show={this.state.modalShow} 
+                    onHide={modalClose}>
+                </PortfolioModal>
+                </React.Fragment>
             )
         })
         //console.log(JSON.stringify(this.state.portfolioList[0].name))
@@ -82,16 +89,22 @@ export default class Portfolio extends React.Component  {
                     <div className="porfolios w-100">
                         <hgroup className="pt-4 pb-2">All Porfolios</hgroup> <hr></hr>
                         <ul className="row p-0 mt-4">{assignPortfolio}</ul>
-                        <div>{this.state.portfolioList.img}</div>
-                        
-                        {this.state.portfolioList.map((storeFolios , index) => (
+
+                        {/* <PortfolioModal
+                            //name={storeFolios.name}
+                            show={this.state.modalShow} 
+                            onHide={modalClose}
+                            >
+                            </PortfolioModal> */}
+                    
+                        {/* {this.state.portfolioList.map((storeFolios , index) => (
                             <PortfolioModal id={index}
                             name={storeFolios.name}
                             show={this.state.modalShow} 
                             onHide={modalClose}
                             >
                             </PortfolioModal>
-                        ))} 
+                        ))}  */}
 
                         
                     </div>

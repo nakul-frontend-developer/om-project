@@ -4,7 +4,7 @@ import {Modal , Button} from 'react-bootstrap';
 export default class PortfolioModal extends React.Component {
     render() {
       return (
-        <Modal 
+        <Modal
           {...this.props}
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"
