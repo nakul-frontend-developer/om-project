@@ -9,15 +9,19 @@ export default class Portfolio extends React.Component  {
         super(props , ...args);
         this.state = {
             portfolioList : [
-                {img: 'images/360x150.png', name : 'project test-1', CMS : 'Wordpress'},
-                {img: 'images/360x150.png', name : 'project test-2', CMS : 'Zend'},
-                {img: 'images/360x150.png', name : 'project test-3', CMS : 'Magento'},
-                {img: 'images/360x150.png', name : 'project test-4', CMS : 'Drupal'},
-                {img: 'images/360x150.png', name : 'project test-5', CMS : 'CI'}
+                {img: 'images/360x150.png', name : 'project test-1', CMS : 'Wordpress', content : '1 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'},
+
+                {img: 'images/360x150.png', name : 'project test-2', CMS : 'Zend', content : '2 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'},
+
+                {img: 'images/360x150.png', name : 'project test-3', CMS : 'Magento', content : '3 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'},
+
+                {img: 'images/360x150.png', name : 'project test-4', CMS : 'Drupal', content : '4 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'},
+
+                {img: 'images/360x150.png', name : 'project test-5', CMS : 'CI', content : '5 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'}
             ],
             modalShow: false,
             active : '',    // # Method 1 - If we use -1 so active state remove in all (li) onLoad
-            activeItem: '', // # Method 2 - If we use -1 so active state remove in all (li) onLoad
+            activeItem: '0', // # Method 2 - If we use -1 so active state remove in all (li) onLoad
         }
         this.activeStateHandler = this.activeStateHandler.bind(this)
     }
@@ -34,22 +38,19 @@ export default class Portfolio extends React.Component  {
     }
 
     // # Method 2 Handler ===================================================
-    activeListHandler (currentIndex ,e) {
-        //const currentIndexx = e.currentTarget.dataset.id
-        //console.log(currentIndexx)
+    activeListHandler (currentIndex) {
         this.setState({
             activeItem: currentIndex,
             modalShow: true, 
         })
     }
 
-   
 
     render () {
         let modalClose = () => this.setState({ modalShow: false });
         var assignPortfolio = this.state.portfolioList.map((getPortfolio , index) => {
             return (
-                <React.Fragment key={index}>
+        
                 <li key={index} data-id={index}
                     // # Method 1 ===================================================
                         //onClick={this.activeStateHandler} 
@@ -63,21 +64,22 @@ export default class Portfolio extends React.Component  {
                             <img className="card-img-top" src={getPortfolio.img} alt=""/>
                             <div className="card-body">
                                 <h4>{getPortfolio.name}</h4>
-                                <p className="card-text"><b>{getPortfolio.CMS}</b></p>
-                                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout... </p>
+                                <p className="card-text"><strong>{getPortfolio.CMS}</strong></p>
+                                <p maxLength = {10}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout... </p>
                                 <Button variant="secondary" >Show More</Button>
                             </div>
                         </div>
                 </li> 
-                <PortfolioModal 
-                    data-id={index}
-                    show={this.state.modalShow} 
-                    onHide={modalClose}>
-                </PortfolioModal>
-                </React.Fragment>
+       
             )
         })
         //console.log(JSON.stringify(this.state.portfolioList[0].name))
+
+        const ModalContent = assignPortfolio
+        var activeItem = parseInt(this.state.activeItem)
+        //console.log(ModalContent[0]._self.state.portfolioList[0].name)
+        //console.log(ModalContent)
+        //console.log(activeItem)
 
         return(
         <React.Fragment>
@@ -90,12 +92,15 @@ export default class Portfolio extends React.Component  {
                         <hgroup className="pt-4 pb-2">All Porfolios</hgroup> <hr></hr>
                         <ul className="row p-0 mt-4">{assignPortfolio}</ul>
 
-                        {/* <PortfolioModal
-                            //name={storeFolios.name}
+                        <PortfolioModal 
+                            data-id={activeItem}
+                            name={ModalContent[activeItem]._self.state.portfolioList[activeItem].name}
+                            CMS={ModalContent[activeItem]._self.state.portfolioList[activeItem].CMS}
+                            content={ModalContent[activeItem]._self.state.portfolioList[activeItem].content}
                             show={this.state.modalShow} 
-                            onHide={modalClose}
-                            >
-                            </PortfolioModal> */}
+                            onHide={modalClose}>
+                        </PortfolioModal>
+              
                     
                         {/* {this.state.portfolioList.map((storeFolios , index) => (
                             <PortfolioModal id={index}
