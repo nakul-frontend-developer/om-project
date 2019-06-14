@@ -65,7 +65,7 @@ export default class Portfolio extends React.Component  {
                             <div className="card-body">
                                 <h4>{getPortfolio.name}</h4>
                                 <p className="card-text"><strong>{getPortfolio.CMS}</strong></p>
-                                <p maxLength = {10}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout... </p>
+                                <p>{getPortfolio.content.substr(0, 100)}...</p>
                                 <Button variant="secondary" >Show More</Button>
                             </div>
                         </div>
